@@ -1,29 +1,19 @@
 from collections import deque
 
-q = deque(([1,2,3,4,5]))
-
 #layer-layer graph search for finding the minimum path 
 
-class Node:
-    data = None
-    next = None
+def add_edge(graph, u, v):
+    graph[u].append(v)
+    graph[v].append(u)
     
-    def __init__(self, data, next):
-        self.data = data
-        self.next = next
-    
-head = Node(1, None)
+V = 5
+graph = [[] for i in range(V)]
+add_edge(graph, 0, 1)
+add_edge(graph, 0, 2)
+add_edge(graph, 1, 3)
+add_edge(graph, 1, 4)
+add_edge(graph, 2, 4)
 
-node = Node(4, None)
-head.next = node
 
-node2 = Node(5, None)
-node.next = node2
-
-temp = head
-while(temp != None):
-    print(temp.data)
-    temp = temp.next
-    
 
 
