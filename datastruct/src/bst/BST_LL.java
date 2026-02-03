@@ -1,4 +1,4 @@
-package linkedlist;
+package bst;
 
 /* Sorted Linked List
 * search/select : O(n)
