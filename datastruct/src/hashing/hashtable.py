@@ -1,7 +1,7 @@
 class Node: 
     def __init__(self, key, value):
         self.key = key
-        self.value = value
+        self.val = value
         self.next = None
 
 class HashTable:
@@ -17,14 +17,17 @@ class HashTable:
         node = self.hash[index]
 
         if not node:
-            self.hash[index] = Node(key, val)
+            self.hash[index] = Node(key, value)
         else:
             while node.next:
                 if node.key == key:
-                    node.val = val
+                    node.val = value
                     return
                 node = node.next
-            node.next = Node(key, val)
+            if node.key == key:
+                node.val = value
+                return
+            node.next = Node(key, value)
         self.size += 1
         if self.size / self.capacity >= .5:
             self.resize()
@@ -36,12 +39,34 @@ class HashTable:
 
 
     def get(self, key: int) -> int:
-        return
+        index = self.hash_function(key)
+        node = self.hash[index]
+        while node:
+            if node.key == key:
+                return node.val
+            node = node.next
+        return -1
 
 
 
     def remove(self, key: int) -> bool:
-        return
+        index = self.hash_function(key)
+        node = self.hash[index]
+        if not node:
+            return False
+        prev = None
+        while node:
+            if node.key == key:
+                if not prev:
+                    self.hash[index] = node.next
+                else:
+                    prev.next = node.next
+                self.size -= 1
+                return True
+            prev, node = node, node.next
+        return False
+
+
 
 
     def getSize(self) -> int:
@@ -63,6 +88,7 @@ class HashTable:
         for node in old_hash:
             while node:
                 self.insert(node.key, node.val)
+                node = node.next
             
             
 
