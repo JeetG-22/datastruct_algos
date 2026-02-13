@@ -24,4 +24,3 @@ def create_graph(adj_list, edge_list):
         adj_list[src].append(dst)
 
 create_graph(adj_list, edges)
-print(adj_list)
